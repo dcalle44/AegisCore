@@ -122,20 +122,19 @@ HTML Incident Report
 ## Screenshots
 
 ### Architecture Diagram
+<img width="662" height="1021" alt="AegisCore_Architecture (1) (1) drawio" src="https://github.com/user-attachments/assets/1689da61-f930-4d52-a757-b4a47e33a247" />
 
 
 
-### Wazuh Integration
+### Wazuh Alert Monitoring
 
+Security events collected from the Cowrie honeypot and ingested into Wazuh SIEM for analysis and enrichment.
+<img width="3439" height="1005" alt="Screenshot 2026-05-20 191649" src="https://github.com/user-attachments/assets/9c8e32e6-91b1-4dd3-9952-e8cda335954f" />
 
+### Wazuh Alert Expanded 
 
-### Threat Intelligence Enrichment
-
-
-
-
-### Risk Scoring Dashboard
-
+<img width="1685" height="995" alt="Screenshot 2026-05-29 123315" src="https://github.com/user-attachments/assets/7d9de4a6-8aac-4eaf-bca9-eab9dd5ba9d5" />
+<img width="1715" height="1007" alt="Screenshot 2026-05-29 123347" src="https://github.com/user-attachments/assets/568aab6c-5e59-4045-a52e-5c951313bd62" />
 
 
 ### Generated Incident Report
