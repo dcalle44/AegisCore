@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+ 
+  <style>
+    #map { height: 1500px;
+           width: 100%;
+        border-top: 20px solid white;
+        border-bottom: 20px solid white; } 
+  </style>
+  <title> Threat Intelligence Report</title>
+
+ <style>
+    body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background-color: #0f172a; 
+        color: #e5e7eb;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+   .header {
+   
+    align-items: center;
+    justify-content: center;
+   }
+   .logo-container {
+    flex: 0 0 auto;
+    width: 100px;
+}
+    .logo {
+    width: 400px;
+    height: auto;
+}
+    .title-container {
+    text-align: left;
+    margin-top: -68px;
+}
+    h1 {
+    text-align: center;
+    font-size: 105px;
+    font-weight: 600;
+    background: linear-gradient(to bottom, #1fffda, #0918dd, #046d6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    margin-bottom: 70px;
+    margin-top: 0px;
+    text-shadow: 0 0 10px rgba(77, 163, 255, 0.4);
+}
+
+/* Accent underline */
+h1::after {
+    content: "";
+    display: block;
+    width: 75%;
+    height: 22px;
+    background: white;
+    margin: 10px auto 0;
+    border-radius: 2px;
+    margin-bottom: 120px;
+    margin-top: 90px;
+  
+}
+
+    .subtitle {
+    text-align: center;
+    color: #aaa;
+    font-size: 20px;
+    margin-bottom: 35px;
+}
+.header-container {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 30px;
+    font-weight: 400;
+}
+.dashboard-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #e6edf3;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 8px rgba(0, 150, 255, 0.3);
+}
+.chart-description {
+    font-size: 24px;
+    font-weight: 300;
+    color: #9fb3c8; /* muted blue-gray */
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+    h2 {
+
+        color: white;
+        margin-top: 35px;
+        font-weight: 700;
+        font-size: 35px;
+        
+    }
+
+    table {
+        width: 100%;
+        margin: auto;
+        border-collapse: collapse;
+        background-color: #1e293b; 
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        margin-bottom: 75px;
+    }
+
+    th {
+        background-color: #334155; /* header dark */
+        color: #f1f5f9;
+        padding: 12px;
+        font-size: 17px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    td {
+        padding: 10px;
+        font-size: 16px;
+        border-bottom: 1px solid #334155;
+        max-width: 250px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #1e293b;
+    }
+
+    tr:nth-child(odd) {
+        background-color: #0f172a;
+    }
+
+    tr:hover {
+        background-color: #4da3ff;
+        transition: 0.2s;
+    }
+
+    .critical {
+        color: #ef4444;
+        font-weight: bold;
+        text-shadow: 0 0 3px #ef4444;
+    }
+    .high {
+        color: #f59e0b; 
+        font-weight: bold;
+    }
+    .medium {
+        color: #ebca66;
+        font-weight: bold;
+    }
+    .lo {
+        color: #10b981;
+        font-weight: bold;
+    }
+    
+    .crit {
+        color: #ef4444;
+        font-weight: bold;
+        text-shadow: 0 0 3px #ef4444; 
+    }
+    .hi {
+        color: #f59e0b; 
+        font-weight: bold;
+        text-shadow: none;
+    }
+    .med {
+        color: #edcc67;
+        font-weight: bold;
+        text-shadow: none;
+    }
+    .lo {
+        color: #10b981;
+        font-weight: bold;
+        text-shadow: none;
+    }
+    .runtime {
+        color: #94a3b8; 
+        font-weight: 500;
+    }
+   
+.methodology {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #1e293b;
+    border-radius: 10px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+/* Title */
+.methodology h2 {
+    background: linear-gradient(to bottom, #2ff7ff, #207fd8, #100cdc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+    font-size: 45px;
+}
+
+/* Description */
+.method-desc {
+    font-size: 25px;
+    color: #cfd8e3;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+/* Bullet points */
+.methodology ul {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.methodology li {
+    margin-bottom: 6px;
+    color: #e0e6ed;
+    font-size: 25px;
+}
+
+/* Severity guide */
+.severity-guide {
+    margin-top: 15px;
+}
+
+.severity-guide span {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 7px 200px;
+    border-radius: 6px;
+    font-size: 19px;
+    font-weight: bold;
+}
+.critical1 {
+    background: #ff4d4d;
+    color: white;
+}
+
+.high1 {
+    background: #ff944d;
+    color: white;
+}
+
+.medium1 {
+    background: #ffd24d;
+    color: white;
+}
+
+.low1 {
+    background: #66cc66;
+    color: white;
+}
+.scoringmethod {
+    color: #4da6ff;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 37px;
+}
+.summary {
+    margin-top: 30px;
+    color: #cfd8e3;
+    margin-bottom: 150px;
+}
+.executive-summary {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #1e293b;
+    border-radius: 10px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-bottom: 150px;
+}
+.h2Title {
+    background: linear-gradient(to bottom, #1fb8ff, #207bd8, #100cdc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+    font-size: 55px;
+}
+.paragraph {
+    font-size: 32px;
+    color: #cfd8e3;
+    margin-bottom: 15px;
+    padding-left: 150px;
+    padding-right: 150px;
+ }
+.country-count {
+    font-weight: bold; 
+}
+.top-country {
+    font-weight: bold;
+}
+.top-event {
+    font-weight: bold;
+}
+.total-events {
+    font-weight: bold;
+}
+.extra-info {
+    margin-bottom: 30px;
+    margin-top: 0px;
+    font-size: 17px;
+    font-style: italic;
+}
+/* Highest Priority Section CSS */
+.highest-priority-section {
+
+    width: 90%;
+    margin: 50px auto;
+    margin-top: 100px;
+    margin-bottom: 180px;
+
+}
+.priority-title {
+
+    font-size: 38px;
+    background: linear-gradient(to bottom, #eeb5b5, #c62828, #530202);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 25px;
+    text-align: center;
+}
+.priority-card {
+
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 0 50px rgb(227 18 18 / 35%);
+}
+.priority-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 25px;
+
+    margin-bottom: 30px;
+}
+.priority-item {
+
+    display: flex;
+
+    flex-direction: column;
+}
+.label {
+
+    font-size: 20px;
+
+    color: #94a3b8;
+
+    margin-bottom: 8px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+.value {
+
+    font-size: 32px;
+
+    color: white;
+
+    font-weight: 600;
+}
+.priority-reasoning p {
+    color: #cbd5e1;
+    line-height: 1.7;
+    font-weight: 500;
+    font-size: 25px;
+    margin-top: 10px;
+}
+.footer {
+
+    margin-top: 90px;
+    padding: 25px;
+    padding-top: 40px;
+    color: #64748b;
+    font-size: 14px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.10);
+}
+
+.footer p {
+
+    margin: 8px 0;
+}
+
+</head>
+</style>
+
+<body>
+<div class="header">
+    <div class="logo-container">
+     <img src = "LogoFinal.png" class = "logo">
+    </div>
+    <div class="title-container">
+      <h1>Threat Intelligence Report </h1>
+    </div>
+  </div>
+<div class="header-container">
+  <h2="dashboard-title">Real-Time Threat Analysis & Alert Prioritization</h2>   
+ <p class="chart-description">
+This dashboard combines behavioral activity and threat intelligence to identify and rank high-risk alerts.
+</p>
+</div>
+<div class="table-container">
+  <table border="1">
+    <tr>
+      <th>IP Address</th>
+      <th>Event Type</th>
+      <th>Severity Scale</th>
+      <th>Fired Times</th>
+      <th>TimeStamp</th>
+      <th>Threat Score</th>
+      <th>Abuse Score</th>
+      <th>VT Score</th>
+      <th>Country</th>
+      <th>Internet Service Provider</th>
+      <th>Reasoning</th>
+      <th>MITRE ATT&CK</th>
+   
+    </tr>
+
+    {{ROWS}} 
+
+  </table>
+</div>
+<div class="summary">
+  <h2> Total Events: {{total}} </h2>
+  <h2> Critical: <span class="crit">{{critical}} </span>| High: <span class="hi">{{high}} </span>| Medium: <span class="med">{{medium}} </span>| Low: <span class="lo">{{low}} </span></h2>
+  <h2> Report Generated: <span class= "runtime">{{run_time}} </span> </h2>
+</div>
+
+<div class = "executive-summary">
+    <h2 class="h2Title">Executive Summary</h2>
+    <p class="paragraph"> During the monitored reporting period, the system processed
+        a total of <span class="total-events">{{total}}</span> security events ranging from
+        Low to Critical severity levels.
+
+        The most commonly observed activity involved
+        <span class="top-event">{{top_event}}</span> behavior, accounting for a significant portion
+        of detected events within the environment.
+
+        Threat intelligence enrichment identified infrastructure
+        originating from <span class="country-count">{{country_counter}}</span> countries, primarily in <span class="top-country">{{top_country}}</span> with several indicators
+        displaying elevated abuse confidence and suspicious
+        behavioral characteristics.
+
+        Alert prioritization and severity scoring were performed
+        using contextual event analysis, behavioral indicators,
+        and external reputation intelligence sources. </p>
+    
+    
+    </div> 
+
+<div id="map">
+    
+    
+    
+    
+    </div>
+    <script>
+    var map = L.map('map').setView([20, 0], 4);
+   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+
+   
+   const alerts = map_data;
+
+    alerts.forEach(alert => {
+        var AlertIcon = L.icon({
+            iconUrl: 'Alert-PNG-Picture.png',
+            iconSize: [30, 30],
+            iconAnchor: [15, 30],
+        });
+        const marker = L.marker([alert.latitude, alert.longitude], {
+            icon: AlertIcon
+        }).addTo(map);
+        marker.on('click', function() {
+            map.flyTo([alert.latitude, alert.longitude], 12, {
+                duration: 1.5
+            });
+        })
+        marker.bindPopup(`
+            <div style="padding: 10px; background-color: #0f172a; border-radius: 8px; color: white;">
+            <b>IP Address:</b> ${alert.src_ip}<br>
+            <b>Event Type:</b> ${alert.event_type}<br>
+            <b>Severity:</b> ${alert.severity}<br>
+            <b>Country:</b> ${alert.country}<br>
+            <b>Threat Score:</b> ${alert.threat_score}<br>
+            <b>Abuse Score:</b> ${alert.abuse_score}<br>
+            <b>VT Score:</b> ${alert.vt_score}<br>
+            </div>
+        `);
+
+        
+    });
+   
+
+    </script>
+
+<div class = "highest-priority-section">
+    <h2 class="priority-title">
+        Highest Priority Alert
+    </h2>
+
+    <div class="priority-card">
+
+        <div class="priority-grid">
+
+            <div class="priority-item">
+                <span class="label">IP Address</span>
+                <span class="value">{{highest_priority_ip}}</span>
+            </div>
+
+            <div class="priority-item">
+                <span class="label">Event Type</span>
+                <span class="value">{{highest_priority_event}}</span>
+            </div>
+
+            <div class="priority-item">
+                <span class="label">Threat Score</span>
+                <span class="value">{{highest_priority_score}}</span>
+            </div>
+
+            <div class="priority-item">
+                <span class="label">Severity</span>
+                <span class="value">{{highest_priority_severity}}</span>
+            </div>
+
+            <div class="priority-item">
+                <span class="label">Country</span>
+                <span class="value">{{highest_priority_country}}</span>
+            </div>
+
+            <div class="priority-item">
+                <span class="label">MITRE ATT&CK</span>
+                <span class="value">{{highest_priority_mitre}}</span>
+            </div>
+
+        </div>
+
+        <div class="priority-reasoning">
+
+            <span class="label">Reasoning</span>
+
+            <p>
+                {{highest_priority_reason}}
+            </p>
+
+        </div>
+
+    </div>
+
+    </div>
+ 
+    <div class="methodology">
+    <h2 class="ScoringMethod">Scoring Methodology</h2>
+
+    <p class="method-desc">
+        This report prioritizes alerts using a combined scoring model based on behavioral activity and external threat intelligence.
+    </p>
+    <p class="extra-info">
+    *Each factor is scored out of 5 points, for a maximum total of 20 points.
+    The final threat score is converted into a percentage.*
+    </p>
+    <ul>
+    <li><strong>Event Type Weight:</strong> High-risk events contribute up to 25%</li>
+    <li><strong>Attempt Volume:</strong> Higher activity levels contribute up to 25%</li>
+    <li><strong>VirusTotal Intelligence:</strong> Malicious or suspicious detections contribute up to 25%</li>
+    <li><strong>AbuseIPDB Reputation:</strong> Known malicious IP reputation contributes up to 25%</li>
+    </ul>
+    
+    <div class="severity-guide">
+        <span class="critical1">Critical ≥ 9</span>
+        <span class="high1">High 7–8.9</span>
+        <span class="medium1">Medium 5–6.9</span>
+        <span class="low1">Low &lt; 5</span>
+    </div>
+
+</div>
+<footer class="footer">
+
+    <p>
+        Generated by AegisCore Threat Intelligence Platform
+    </p>
+
+    <p>
+        Telemetry correlated from Wazuh SIEM,
+        Suricata IDS, and Cowrie Honeypot
+    </p>
+
+    <p>
+        Threat enrichment powered by
+        AbuseIPDB and VirusTotal
+    </p>
+
+    <p> Geolocation Mapping powered by Leaflet.js & IPGeolocation.io</p>
+
+    <p>
+        Report Generated: {{run_time}}
+    </p>
+    
+
+</footer>
+</body>
+</html>
