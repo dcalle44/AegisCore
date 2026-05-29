@@ -111,6 +111,7 @@ HTML Incident Report
 - JSON
 - HTML
 - CSS
+- JavaScript
 
 ### Security Frameworks
 
