@@ -153,7 +153,7 @@ Security events collected from the Cowrie honeypot and ingested into Wazuh SIEM 
 ### Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/AegisCore.git
+git clone https://github.com/dcalle44/AegisCore.git
 cd AegisCore
 ```
 
