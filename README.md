@@ -60,6 +60,8 @@ Cowrie Honeypot
         ↓
 Wazuh SIEM
         ↓
+OpenSearch API
+        ↓
 AegisCore
    ↙     ↓      ↘
 AbuseIPDB MITRE VirusTotal
