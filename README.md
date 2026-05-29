@@ -133,11 +133,19 @@ HTML Incident Report
 
 
 
+
 ### Risk Scoring Dashboard
 
 
 
 ### Generated Incident Report
+<img width="3439" height="874" alt="Screenshot 2026-05-28 231130" src="https://github.com/user-attachments/assets/84087ea8-6304-4abf-9c00-184b1a5c2bd3" />
+<img width="3438" height="809" alt="Screenshot 2026-05-28 231114" src="https://github.com/user-attachments/assets/d962a226-d7a9-4ef6-b038-1accdbe5350e" />
+<img width="2906" height="1012" alt="Screenshot 2026-05-28 231102" src="https://github.com/user-attachments/assets/a7a2c7bb-577a-4ef7-bff0-405d41b0eaef" />
+<img width="3439" height="1099" alt="Screenshot 2026-05-28 231050" src="https://github.com/user-attachments/assets/572de284-551d-4c5d-a74c-6ae8686bcad7" />
+<img width="3397" height="805" alt="Screenshot 2026-05-28 231033" src="https://github.com/user-attachments/assets/70503d50-6cd8-441c-b8a7-0c6509a719e8" />
+<img width="3419" height="1055" alt="Screenshot 2026-05-28 231010" src="https://github.com/user-attachments/assets/32bed5a7-60c6-4805-910d-3098f84624d4" />
+<img width="3412" height="1071" alt="Screenshot 2026-05-28 230944" src="https://github.com/user-attachments/assets/59a58ac2-a02f-460b-b80f-81c674463ef7" />
 
 
 
