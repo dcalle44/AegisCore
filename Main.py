@@ -53,7 +53,7 @@ threat_event_score = {
     "Data Exfiltration": 5
 }
 
-# 🔹 Severity ranking for sorting
+# severity ranking for sorting
 severity_map = {
     "Critical": 4,
     "High": 3,
@@ -70,7 +70,7 @@ processed_alerts = [] # Creates an empty list to store processed alerts after en
 
 aggregated_alerts = {} # Creates an empty dictionary to store aggregated alerts based on source IP and event type. This will be used to count the number of attempts for each unique combination of source IP and event type.
 
-# 🔹 LOOP 1 — Enrich alerts (calculate + store values)
+# LOOP 1 — Enrich alerts (calculate + store values)
 for alert in alerts:
     # Translate JSON Output from SIEM to Readable Data
     source = alert.get("_source", {})  # Get the _source field from each alert which contains the actual alert data.
@@ -205,7 +205,7 @@ highest_priority_alert_latitude = highest_priority_alert["latitude"] if highest_
 highest_priority_alert_reason = highest_priority_alert["reason"] if highest_priority_alert else "N/A"
 highest_priority_alert_mitre = highest_priority_alert["mitre"] if highest_priority_alert else "N/A"
 highest_priority_alert_severity = highest_priority_alert["severity"] if highest_priority_alert else "N/A"
-# 🔹 SORT alerts AFTER enrichment
+# Sort alerts AFTER enrichment
 processed_alerts.sort(
     key=lambda x: severity_map.get(x["severity"], 0), #SORTS BY SEVERITY RANKING.
     reverse=True)
@@ -214,7 +214,7 @@ processed_alerts.sort(
 
 
 
-# 🔹 LOOP 2 — Build HTML from sorted alerts
+# loop 2 build HTML from sorted alerts
 for alert in processed_alerts:
     rows += f""" 
     <tr>
